@@ -1,6 +1,5 @@
 import itertools
 import random
-import re
 
 import spacy
 from nltk import download as nltkdl
@@ -13,6 +12,8 @@ from nltk.tree import Tree
 from initialize import spacy_nlp
 from interfaces.SentenceOperation import SentenceOperation
 from tasks.TaskTypes import TaskType
+
+# import re
 
 
 def find_candidates(doc):
@@ -70,14 +71,22 @@ def hashtagify(sentence, nlp, prob=0.5, seed=666, max_outputs=1):
             if random.random() < prob:
                 # Convert a word or multiple words to #word or #MultipleWords
                 if len(cand.split()) == 1:
-                    transformed_sentence = re.sub(
-                        cand, "#" + cand, transformed_sentence
+                    # transformed_sentence = re.sub(
+                    #     cand, "#" + cand, transformed_sentence
+                    # ) #problem with escape characters
+                    transformed_sentence = transformed_sentence.replace(
+                        cand, "#" + cand
                     )
                 else:
-                    transformed_sentence = re.sub(
-                        cand,
-                        "#" + re.sub(" ", "", cand.title()),
-                        transformed_sentence,
+                    # transformed_sentence = re.sub(
+                    #     cand,
+                    #     "#" + re.sub(" ", "", cand.title()),
+                    #     transformed_sentence,
+                    # ) #problem with escape characters
+                    cand_titled = cand.title()
+                    cand_titled = cand_titled.replace(" ", "")
+                    transformed_sentence = transformed_sentence.replace(
+                        cand, "#" + cand_titled
                     )
 
         perturbed_texts.append(transformed_sentence)
