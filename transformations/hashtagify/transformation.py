@@ -73,7 +73,7 @@ def hashtagify(sentence, nlp, prob=0.5, seed=666, max_outputs=1):
                 if len(cand.split()) == 1:
                     # transformed_sentence = re.sub(
                     #     cand, "#" + cand, transformed_sentence
-                    # ) #problem with escape characters
+                    # ) #  Exception in case of
                     transformed_sentence = transformed_sentence.replace(
                         cand, "#" + cand
                     )
@@ -82,7 +82,7 @@ def hashtagify(sentence, nlp, prob=0.5, seed=666, max_outputs=1):
                     #     cand,
                     #     "#" + re.sub(" ", "", cand.title()),
                     #     transformed_sentence,
-                    # ) #problem with escape characters
+                    # ) #  Exception
                     cand_titled = cand.title()
                     cand_titled = cand_titled.replace(" ", "")
                     transformed_sentence = transformed_sentence.replace(
